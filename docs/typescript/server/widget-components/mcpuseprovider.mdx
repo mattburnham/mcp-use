@@ -4,7 +4,7 @@ description: "Universal provider component for MCP Apps and ChatGPT Apps SDK wid
 icon: "layers"
 ---
 
-The `<McpUseProvider />` is a universal provider component that works with **both** MCP Apps and ChatGPT Apps SDK protocols. It automatically includes StrictMode, ThemeProvider, BrowserRouter, optional WidgetControls, and ErrorBoundary, providing a consistent setup regardless of which protocol your widget is using.
+The `<McpUseProvider />` is a universal provider component that works with **both** MCP Apps and ChatGPT Apps SDK protocols. It automatically includes StrictMode, ThemeProvider, optional WidgetControls, and ErrorBoundary, providing a consistent setup regardless of which protocol your widget is using.
 
 <Info>
   **Protocol-Agnostic**: This component works identically whether your widget is
@@ -32,10 +32,24 @@ The `McpUseProvider` automatically wraps your widget with:
 
 1. **StrictMode** (outermost) - React's development mode checks
 2. **ThemeProvider** - Protocol-aware theme management (syncs with both MCP Apps and ChatGPT)
-3. **BrowserRouter** - React Router with automatic basename calculation
-4. **WidgetControls** (conditional) - Debug and view controls if enabled (works with both protocols)
-5. **ErrorBoundary** (innermost) - Error handling for graceful failures
-6. **Auto-sizing container** (conditional) - ResizeObserver wrapper if `autoSize={true}` (adapts to protocol)
+3. **WidgetControls** (conditional) - Debug and view controls if enabled (works with both protocols)
+4. **ErrorBoundary** (innermost) - Error handling for graceful failures
+5. **Auto-sizing container** (conditional) - ResizeObserver wrapper if `autoSize={true}` (adapts to protocol)
+
+<Warning>
+  **Breaking change (v1.20.1):** `McpUseProvider` no longer includes `BrowserRouter`.
+  If your widget uses `react-router` for navigation, add it explicitly:
+
+  ```tsx
+  import { BrowserRouter } from "react-router";
+
+  <McpUseProvider>
+    <BrowserRouter>
+      <MyWidget />
+    </BrowserRouter>
+  </McpUseProvider>
+  ```
+</Warning>
 
 ## Basic Usage
 
